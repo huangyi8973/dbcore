@@ -53,8 +53,8 @@ public class BaseDao {
 			// psta.setString(3, "大嘴");
 			// psta.setString(4, MD5Util.Parse("1"));
 			// System.out.println(psta.executeUpdate());
-			IBaseVO vo=new UserVO();
-			String sql = SqlHelper.getSelectSql(vo);
+			IBaseVO nvo=new UserVO();
+			String sql = SqlHelper.getSelectSql(nvo);
 			psta = conn.prepareStatement(sql);
 			rs = psta.executeQuery();
 			//把数据填充到VO里去
@@ -67,10 +67,9 @@ public class BaseDao {
 				UserVO vo=new UserVO();
 				for(int i=1;i<=meta.getColumnCount();i++){
 					//获取字段，填充到VO
-					vo.
+					vo.setValue(meta.getColumnName(i), rs.getObject(i));
 				}
-				for(int c=1;c<=meta.getColumnCount();c++)
-				System.out.println(rs.getObject(c));
+				voList.add(vo);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

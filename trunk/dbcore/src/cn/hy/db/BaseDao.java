@@ -30,6 +30,7 @@ public class BaseDao {
 			e.printStackTrace();
 		}
 	}
+	
 
 	public static void main(String[] args) {
 		// 0.准备动作
@@ -56,12 +57,11 @@ public class BaseDao {
 			IBaseVO nvo=new UserVO();
 			String sql = SqlHelper.getSelectSql(nvo);
 			psta = conn.prepareStatement(sql);
+			System.out.println("sql:"+sql);
 			rs = psta.executeQuery();
+			
 			//把数据填充到VO里去
 			ResultSetMetaData meta = rs.getMetaData();
-//			for (int i = 1; i <=meta.getColumnCount(); i++) {
-//				System.out.println(meta.getColumnTypeName(i));
-//			}
 			List<IBaseVO> voList=new ArrayList<IBaseVO>();
 			while(rs.next()){
 				UserVO vo=new UserVO();
@@ -71,6 +71,7 @@ public class BaseDao {
 				}
 				voList.add(vo);
 			}
+			System.out.println(voList.size());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
@@ -101,6 +102,5 @@ public class BaseDao {
 				}
 			}
 		}
-
 	}
 }

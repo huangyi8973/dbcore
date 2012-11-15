@@ -22,6 +22,7 @@ public abstract class BaseVO implements IBaseVO {
 	 * @date 2012-11-15 上午4:42:48
 	 */
 	public Object getValue(String columnName) {
+		columnName=columnName.toLowerCase();
 		Class<?> c=this.getClass();
 		Field[] fields=c.getDeclaredFields();
 		for(Field field:fields){
@@ -47,6 +48,7 @@ public abstract class BaseVO implements IBaseVO {
 	 * @date 2012-11-15 上午4:44:03
 	 */
 	public void setValue(String columnName, Object value) {
+		columnName=columnName.toLowerCase();
 		Class<?> c=this.getClass();
 		Field[] fields=c.getDeclaredFields();//TODO 这里类的信息可以缓存起来
 		for(Field field:fields){

@@ -43,15 +43,24 @@ public class SqlHelper {
 	
 	/**
 	 * 获得查询语句
-	 * @param vo
+	 * @param cls VO类
 	 * @return
 	 * @author huangy
-	 * @date 2012-11-15 上午7:04:35
+	 * @date 2012-11-16 上午3:10:44
 	 */
-	public static String getSelectSql(IBaseVO vo){
+	public static String getSelectSql(Class<? extends IBaseVO> cls){
+		IBaseVO vo=null;
 		StringBuilder sql = new StringBuilder();
-		String[] strFields = vo.getFields();
-		sql.append("select ").append(StringUtils.arrayToString(strFields, ",")).append(" from ").append(vo.getTableName());
+		try {
+			vo = cls.newInstance();
+			String[] strFields = vo.getFields();
+			sql.append("select ").append(StringUtils.arrayToString(strFields, ",")).append(" from ").append(vo.getTableName());
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+		}
 		return sql.toString();
+		
 	}
 }

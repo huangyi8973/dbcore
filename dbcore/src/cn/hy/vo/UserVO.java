@@ -1,11 +1,19 @@
 package cn.hy.vo;
 
+import cn.hy.db.annotation.Column;
+
 
 public class UserVO extends BaseVO {
 
+	//by:huangy 2012-11-18 
+	private static final long serialVersionUID = -7336354933530777846L;
+	@Column
 	private String pk_user;
+	@Column
 	private String vusercode;
+	@Column
 	private String vusername;
+	@Column
 	private String vpassword;
 	public String getPk_user() {
 		return pk_user;
@@ -39,13 +47,6 @@ public class UserVO extends BaseVO {
 	public String getPrimaryKey() {
 		
 		return "pk_user";
-	}
-	public static void main(String[] args){
-		IBaseVO vo=new UserVO();
-		vo.setValue("vpassword", "aaa");
-		System.out.println(vo.getValue("vpassword"));
-		vo.setValue("aa", "bbb");
-		System.out.println(vo.getValue("vpassword"));
 	}
 	
 }

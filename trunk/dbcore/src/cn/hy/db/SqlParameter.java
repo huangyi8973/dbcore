@@ -16,4 +16,10 @@ public class SqlParameter {
 	public List<Object> getParameters(){
 		return _parameterList;
 	}
+	public int size(){
+		return _parameterList.size();
+	}
+	public Object get(int i){
+		return _parameterList.get(i);
+	}
 }

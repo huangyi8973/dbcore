@@ -129,7 +129,7 @@ public class DBConnectionManager {
 	 * @date 2012-11-18 上午6:43:09
 	 */
 	public synchronized void free(Connection conn) {
-		System.out.println("释放连接");
+		System.out.println(String.format("[%s] 释放连接", Environment.getCurDateTime()));
 		int index = _connPool.indexOf(conn);
 		_connStatus.set(index, FREE);
 	}

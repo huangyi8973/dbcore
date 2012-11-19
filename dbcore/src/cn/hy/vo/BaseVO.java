@@ -1,8 +1,14 @@
 package cn.hy.vo;
 
+import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
 
+import cn.hy.db.BaseDao;
+import cn.hy.db.annotation.Column;
+import cn.hy.db.annotation.PrimaryKey;
 import cn.hy.utils.StringUtils;
 
 /**
@@ -12,7 +18,10 @@ import cn.hy.utils.StringUtils;
  * @author huangy
  * @date 2012-11-15
  */
-public abstract class BaseVO implements IBaseVO {
+public abstract class BaseVO implements IBaseVO, Serializable {
+
+	// by:huangy 2012-11-18
+	private static final long serialVersionUID = -975279535721610769L;
 
 	private String[] _fields;
 
@@ -56,7 +65,7 @@ public abstract class BaseVO implements IBaseVO {
 	public void setValue(String columnName, Object value) {
 		columnName = columnName.toLowerCase();
 		Class<?> c = this.getClass();
-		Field[] fields = c.getDeclaredFields();// TODO 这里类的信息可以缓存起来
+		Field[] fields = c.getDeclaredFields();
 		for (Field field : fields) {
 			if (field.getName().equals(columnName)) {
 				// 有这个字段，则获取这个字段的值
@@ -85,15 +94,28 @@ public abstract class BaseVO implements IBaseVO {
 			// 同步VO字段缓存
 			Class<?> c = this.getClass();
 			Field[] fields = c.getDeclaredFields();
-			_fields = new String[fields.length];
-			synchronized (_fields) {
+			synchronized (BaseDao.class) {
+				String primaryKey=null;//保存主键
+				List<String> fieldNames = new ArrayList<String>();
 				for (int i = 0; i < fields.length; i++) {
-					_fields[i] = fields[i].getName();
+					if (fields[i].isAnnotationPresent(Column.class)) {
+						fieldNames.add(fields[i].getName());
+					}
+					else if(fields[i].isAnnotationPresent(PrimaryKey.class)){
+						primaryKey=fields[i].getName();
+					}
 				}
+				//把主键放在第一个位置
+				fieldNames.add(0, primaryKey);
+				_fields = fieldNames.toArray(new String[0]);
 			}
 
 		}
 		return _fields;
 	}
 
+	public String getPrimaryKeyValue() {
+		
+		return (String)getValue(getPrimaryKey());
+	}
 }

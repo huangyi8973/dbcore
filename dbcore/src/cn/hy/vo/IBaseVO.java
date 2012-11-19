@@ -46,4 +46,11 @@ public interface IBaseVO {
 	 * @date 2012-11-15 上午5:57:26
 	 */
 	String[] getFields();
+	/**
+	 * 获得主键值
+	 * @return
+	 * @author huangy
+	 * @date 2012-11-18 下午1:02:11
+	 */
+	String getPrimaryKeyValue();
 }

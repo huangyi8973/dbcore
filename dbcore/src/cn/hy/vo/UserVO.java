@@ -1,13 +1,14 @@
 package cn.hy.vo;
 
 import cn.hy.db.annotation.Column;
+import cn.hy.db.annotation.PrimaryKey;
 
 
 public class UserVO extends BaseVO {
 
 	//by:huangy 2012-11-18 
 	private static final long serialVersionUID = -7336354933530777846L;
-	@Column
+	@PrimaryKey
 	private String pk_user;
 	@Column
 	private String vusercode;

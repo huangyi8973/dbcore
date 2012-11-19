@@ -67,4 +67,17 @@ public class StringUtils {
 		}
 		return sb.toString();
 	}
+	/**
+	 * ÅĞ¶Ï×Ö·û´®ÊÇ·ñÎª¿Õ
+	 * @param str
+	 * @return
+	 * @author huangy
+	 * @date 2012-11-18 ÏÂÎç1:23:11
+	 */
+	public static boolean isEmpty(String str){
+		if(str==null||str.trim()==""){
+			return true;
+		}
+		return false;
+	}
 }
